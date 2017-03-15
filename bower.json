@@ -1,9 +1,9 @@
 {
-  "name": "pingpong-node",
+  "name": "bike-api",
   "description": "",
   "main": "index.js",
   "license": "ISC",
-  "homepage": "",
+  "homepage": "https://github.com/sandro-mijatovic/pingpong-jquery",
   "ignore": [
     "**/.*",
     "node_modules",
