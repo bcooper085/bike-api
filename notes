@@ -1,0 +1,30 @@
+//SECRET:
+
+69beab7c09efd4f31117a344be073a69bc7cc5d82385ca81a05771cdf06ed70a
+
+//CALLBACK URLS:
+
+https://bikeindex.org/documentation/authorize
+
+
+
+Access code: fcf25c061bff3b86bbe6abc8a90796472a7228aa4cb4ee0f2841935699b8cf74
+
+Access code converted into a token at this url:
+
+https://bikeindex.org/oauth/token?client_id=587102a0d6e7fc4a441cc1ee03c3b0fada4bf5da35ec66fe182d0b25ead32aac&client_secret=69beab7c09efd4f31117a344be073a69bc7cc5d82385ca81a05771cdf06ed70a&code=fcf25c061bff3b86bbe6abc8a90796472a7228aa4cb4ee0f2841935699b8cf74&grant_type=authorization_code&redirect_uri=https%3A%2F%2Fbikeindex.org%2Fdocumentation%2Fauthorize
+Since this needs to be a POST request, we make the request via javascript and put the response in the box below.
+
+
+Access token response
+
+{
+  "readyState": 4,
+  "responseText": "{\"error\":\"invalid_grant\",\"error_description\":\"The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.\"}",
+  "responseJSON": {
+    "error": "invalid_grant",
+    "error_description": "The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client."
+  },
+  "status": 401,
+  "statusText": "error"
+}

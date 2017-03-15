@@ -22,6 +22,8 @@ var lib = require('bower-files')({
 });
 
 var browserSync = require('browser-sync').create();
+var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
 
 var buildProduction = utilities.env.production;
 
@@ -44,7 +46,6 @@ gulp.task('bowerCSS', function(){
     .pipe(concat('vendor.css'))
     .pipe(gulp.dest('./build/css'));
 });
-
 
 gulp.task('jsBrowserify', ['concatInterface'], function() {
   return browserify({ entries: ['./tmp/allConcat.js'] })
@@ -72,6 +73,7 @@ gulp.task("build", ['clean'], function(){
     gulp.start('jsBrowserify');
   }
   gulp.start('bower');
+  gulp.start('cssBuild');
 });
 
 gulp.task("clean", function() {
@@ -85,8 +87,6 @@ gulp.task('jshint', function(){
     .pipe(jshint.reporter('default'));
 });
 
-
-
 gulp.task('serve', function() {
   browserSync.init({
     server: {
@@ -99,11 +99,9 @@ gulp.task('serve', function() {
   gulp.watch(['js/*.js'], ['jsBuild']);
   gulp.watch(['bower.json'], ['bowerBuild']);
   gulp.watch(['*.html'], ['htmlBuild']);
+  gulp.watch(['scss/*.css'], ['cssBuild']);
 });
 
-gulp.task('htmlBuild', function() {
-  browserSync.reload();
-});
 //Write tasks per "watches" from bower sync  serve task (above)
 //lists array of dependency tasks that need to be run whenever a .js file changes
 gulp.task('jsBuild', ['jsBrowserify', 'jshint'], function () {
@@ -112,4 +110,17 @@ gulp.task('jsBuild', ['jsBrowserify', 'jshint'], function () {
 
 gulp.task('bowerBuild', ['bower'], function() {
   bowerSync.reload();
+});
+
+gulp.task('htmlBuild', function() {
+  browserSync.reload();
+});
+
+gulp.task('cssBuild', function() {
+  return gulp.src(['scss/*.scss'])
+  .pipe(sourcemaps.init())
+  .pipe(sass())
+  .pipe(sourcemaps.write())
+  .pipe(gulp.dest('./build/css'))
+  .pipe(browserSync.stream());
 });
