@@ -1,5 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-exports.apiToken = "3f79968f660d394ea2eaec53e05d8a1cd8da2472f3353736cdf1e1555415221a";
+var apiToken = "241d797aebe722f98ba85097c37113cd974ba27ab0a354a4e982f6af46391b3f"
 
 },{}],2:[function(require,module,exports){
 var apiToken = require("./../.env").apiToken;
@@ -8,16 +8,17 @@ function Bike() {
 
 }
 
-Bike.prototype.getSearched = function(brand, color) {
-    $.get('https://bikeindex.org:443/api/v3/search?page=1&per_page=25&manufacturer=' + brand + '&frame_colors=' + color + '&location=IP&distance=10&stolenness=stolen&access_token=' + apiToken)
+Bike.prototype.getSearched = function(brand) {
+    $.get('https://bikeindex.org:443/api/v3/search?page=1&per_page=25&manufacturer=' + brand + '&location=IP&distance=10&stolenness=stolen&access_token=' + apiToken)
     .then(function(response) {
-      // $('#all-bikes').text
-      response.bikes.foreach(item); {
+      // $('#all-bikes').tex
+           $.each(response.bikes, function(index, bike) {
+           $("#all-bikes").append("<p>" + bike + "</p>");
+      });
+console.log(response.bikes);
 
-        $('#all-bikes').append(item.title + " is the bike title.");
-      }
-    }).fail(function(error) {
-      $('.display-area').append(error.responseJSON.message);
+    }).fail(function (error) {
+      $('#all-bikes').append(error.responseJSON.message);
     });
 };
 
@@ -51,7 +52,8 @@ $(document).ready(function() {
     $('#brand').val("");
     $('#color').val("");
     var newBike = new Bike();
-    newBike.getSearched(brand, color);
+    newBike.getSearched(brand);
+// console.log(newBike.getSearched(brand));
   });
 });
 

@@ -8,6 +8,7 @@ $(document).ready(function() {
     $('#brand').val("");
     $('#color').val("");
     var newBike = new Bike();
-    newBike.getSearched(brand, color);
+    newBike.getSearched(brand);
+// console.log(newBike.getSearched(brand));
   });
 });

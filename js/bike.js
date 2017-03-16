@@ -4,16 +4,17 @@ function Bike() {
 
 }
 
-Bike.prototype.getSearched = function(brand, color) {
-    $.get('https://bikeindex.org:443/api/v3/search?page=1&per_page=25&manufacturer=' + brand + '&frame_colors=' + color + '&location=IP&distance=10&stolenness=stolen&access_token=' + apiToken)
+Bike.prototype.getSearched = function(brand) {
+    $.get('https://bikeindex.org:443/api/v3/search?page=1&per_page=25&manufacturer=' + brand + '&location=IP&distance=10&stolenness=stolen&access_token=' + apiToken)
     .then(function(response) {
-      // $('#all-bikes').text
-      response.bikes.foreach(item); {
+      // $('#all-bikes').tex
+           $.each(response.bikes, function(index, bike) {
+           $("#all-bikes").append("<p>" + bike + "</p>");
+      });
+console.log(response.bikes);
 
-        $('#all-bikes').append(item.title + " is the bike title.");
-      }
-    }).fail(function(error) {
-      $('.display-area').append(error.responseJSON.message);
+    }).fail(function (error) {
+      $('#all-bikes').append(error.responseJSON.message);
     });
 };
 
